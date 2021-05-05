@@ -73,6 +73,8 @@ def verify(signed_data: bytes, public_keys: List[CoseKey]) -> dict:
         else:
             logger.info("Signatured expired at: %s", datetime.fromtimestamp(exp))
             expired = True
+    else:
+        expired = False
 
     hcert = cwt.claims.get(CwtClaims.HCERT.value)
     eu_dgc_v1 = hcert.get(HealthCertificateClaims.EU_DGC_V1.value)
