@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+
+    backend:
+        container_name: green_qr_dev
+        restart: always
+        stdin_open: true
+        tty: true
+        build:
+            context: ./
+            dockerfile: Dockerfile
+        volumes:
+            - ./:/qr
