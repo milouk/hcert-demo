@@ -21,3 +21,15 @@ Then we must spawn a poetry shell by running:
 Finally, we run the following:
 
 `python hcert/cli.py sign --key private.key --input test.json --qrcode qr.png`
+
+
+# Verification
+
+If we want to verify our result we need to re-run the sign but this time we have
+to export the signed binary. We can do this by typing:
+
+`python hcert/cli.py sign --key private.pem --input test.json --output mybinary`
+
+Now to verify it we can run:
+
+`python hcert/cli.py verify --key public.key --input mybinary --output verified.json`
