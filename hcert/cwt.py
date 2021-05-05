@@ -16,6 +16,7 @@ from cryptojwt.jwk.ec import ECKey
 from cryptojwt.jwk.x509 import (
     import_private_key_from_pem_file,
     import_public_key_from_cert_file,
+    import_public_key_from_pem_file,
 )
 from cryptojwt.utils import b64d
 
@@ -41,7 +42,10 @@ def read_cosekey(filename: str, private: bool = True) -> CoseKey:
         with open(filename, "rt") as jwk_file:
             jwk_dict = json.load(jwk_file)
     elif filename.endswith((".key", ".pem")):
-        key = import_private_key_from_pem_file(filename)
+        if private:
+            key = import_private_key_from_pem_file(filename)
+        else:
+            key = import_public_key_from_pem_file(filename)
         jwk = ECKey()
         jwk.load_key(key)
         jwk_dict = jwk.serialize(private=private)
